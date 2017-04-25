@@ -1,83 +1,70 @@
 package tree;
 
+import java.util.Stack;
+
 public class BinaryTree {
-    private Node root;
-    private int size;
+    public static class TreeNode {
+        int data;
+        TreeNode left;
+        TreeNode right;
 
-    public BinaryTree() {
-    }
-
-    public BinaryTree(Node root) {
-        this.root = root;
-    }
-
-    public Node getRoot() {
-        return root;
-    }
-
-    public void setRoot(Node root) {
-        this.root = root;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    class Node {
-        private int data;
-        private Node left, right;
-
-        public Node(int data) {
+        TreeNode(int data) {
             this.data = data;
         }
+    }
 
-        public int getData() {
-            return data;
-        }
+    // Iterative solution
+    public void inOrderIter(TreeNode root) {
 
-        public void setData(int data) {
-            this.data = data;
-        }
+        if (root == null)
+            return;
 
-        public Node getLeft() {
-            return left;
-        }
+        Stack<TreeNode> s = new Stack<>();
+        TreeNode currentNode = root;
 
-        public void setLeft(Node left) {
-            this.left = left;
-        }
+        while (!s.empty() || currentNode != null) {
 
-        public Node getRight() {
-            return right;
-        }
-
-        public void setRight(Node right) {
-            this.right = right;
+            if (currentNode != null) {
+                s.push(currentNode);
+                currentNode = currentNode.left;
+            } else {
+                TreeNode n = s.pop();
+                System.out.printf("%d ", n.data);
+                currentNode = n.right;
+            }
         }
     }
 
-    void insertNode(int data) {
-        if (root == null) {
-            root = new Node(data);
-        } else {
-            insertNode(root, new Node(data));
-        }
+    public static void main(String[] args) {
+        BinaryTree bi = new BinaryTree();
+        // Creating a binary tree
+        TreeNode rootNode = createBinaryTree();
+        System.out.println("-------------------------");
+        System.out.println("Using Iterative solution:");
+
+        bi.inOrderIter(rootNode);
     }
 
-    private Node insertNode(Node currentParent, Node newNode) {
-        if (currentParent == null) {
-            return newNode;
-        } else if (newNode.getData() > currentParent.getData()) {
-            currentParent.right = insertNode(currentParent.right, newNode);
-        } else if (newNode.getData() < currentParent.getData()) {
-            currentParent.left = insertNode(currentParent.left, newNode);
-        }
+    public static TreeNode createBinaryTree() {
 
-        return currentParent;
+        TreeNode rootNode = new TreeNode(40);
+        TreeNode node20 = new TreeNode(20);
+        TreeNode node10 = new TreeNode(10);
+        TreeNode node30 = new TreeNode(30);
+        TreeNode node60 = new TreeNode(60);
+        TreeNode node50 = new TreeNode(50);
+        TreeNode node70 = new TreeNode(70);
+
+        rootNode.left = node20;
+        rootNode.right = node60;
+
+        node20.left = node10;
+        node20.right = node30;
+
+        node60.left = node50;
+        node60.right = node70;
+
+        return rootNode;
     }
 
 }
