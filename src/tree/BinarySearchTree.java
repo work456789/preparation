@@ -26,9 +26,19 @@ public class BinarySearchTree {
         b.insert(15);
         b.insert(16);
         System.out.println("Original Tree : ");
-       // b.display(b.root);
+        BinaryTreePrinter.printNode(root);
         System.out.println("");
+        System.out.println("InOrder recursive traversal : ");
+        b.display(root);
+        System.out.println("");
+        System.out.println("InOrder iterative traversal : ");
         inOrderIter(root);
+        System.out.println("");
+        System.out.println("PreOrder recursive traversal : ");
+        preOrderRecursive(root);
+        System.out.println("");
+        System.out.println("PreOrder iterative traversal : ");
+        preOrderIter(root);
 //        System.out.println("Check whether Node with value 4 exists : " + b.find(4));
 //        System.out.println("Delete Node with no children (2) : " + b.delete(2));
 //        b.display(root);
@@ -38,6 +48,7 @@ public class BinarySearchTree {
 //        b.display(root);
     }
 
+    //inorder traversal recursive
     void display(Node root) {
         if (root != null) {
             display(root.left);
@@ -89,4 +100,49 @@ public class BinarySearchTree {
             }
         }
     }
+
+    static void preOrderRecursive(Node root) {
+        if (root == null) {
+            return;
+        }
+        System.out.println(root.data);
+        preOrderRecursive(root.left);
+        preOrderRecursive(root.right);
+    }
+
+    static void preOrderIter(Node root) {
+        if (root == null) {
+            return;
+        }
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.empty()) {
+            Node currentNode = stack.pop();
+            System.out.println(currentNode.data);
+
+            if (currentNode.right != null) {
+                stack.push(currentNode.right);
+            }
+            if (currentNode.left != null) {
+                stack.push(currentNode.left);
+            }
+        }
+    }
+
+    static void postOrderRecursive(Node root) {
+        if (root == null) {
+            return;
+        }
+        postOrderRecursive(root.left);
+        postOrderRecursive(root.right);
+        System.out.println(root.data);
+    }
+
+    static void postOrderIterative(Node root) {
+        if (root == null) {
+            return;
+        }
+
+    }
+
 }
