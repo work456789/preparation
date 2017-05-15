@@ -1,5 +1,7 @@
 package tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 //https://www.youtube.com/watch?annotation_id=annotation_994734&feature=iv&src_vid=UcOxGmj45AA&v=M6lYob8STMI
@@ -39,6 +41,16 @@ public class BinarySearchTree {
         System.out.println("");
         System.out.println("PreOrder iterative traversal : ");
         preOrderIter(root);
+        System.out.println("");
+        System.out.println("PostOrder recursive traversal : ");
+        postOrderRecursive(root);
+        System.out.println("");
+        System.out.println("PostOrder iterative traversal : ");
+        postOrderIterative(root);
+        System.out.println("");
+        System.out.println("LevelOrder traversal : ");
+        levelOrderTraversal(root);
+        System.out.println("");
 //        System.out.println("Check whether Node with value 4 exists : " + b.find(4));
 //        System.out.println("Delete Node with no children (2) : " + b.delete(2));
 //        b.display(root);
@@ -143,6 +155,48 @@ public class BinarySearchTree {
             return;
         }
 
+        Stack<Node> stack = new Stack<>();
+        Node current = root;
+
+        while (true) {
+            while(current != null) {
+                if (current.right != null) {
+                    stack.push(current.right);
+                }
+                stack.push(current);
+                current = current.left;
+                continue;
+            }
+
+            if (stack.isEmpty()) {
+                return;
+            }
+            current = stack.pop();
+
+            if (current.right != null && !stack.isEmpty() && current.right == stack.peek()) {
+                stack.pop();
+                stack.push(current);
+                current = current.right;
+            } else {
+                System.out.println(current.data + " ");
+                current = null;
+            }
+        }
+    }
+
+    static void levelOrderTraversal(Node root) {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()) {
+            Node tempNode = queue.poll();
+            System.out.println(tempNode.data + " ");
+            if (tempNode.left != null) {
+                queue.add(tempNode.left);
+            }
+            if (tempNode.right != null) {
+                queue.add(tempNode.right);
+            }
+        }
     }
 
 }
