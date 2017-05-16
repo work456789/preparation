@@ -50,7 +50,14 @@ public class BinarySearchTree {
         System.out.println("");
         System.out.println("LevelOrder traversal : ");
         levelOrderTraversal(root);
+        System.out.println("Delete root : ");
+        delete(root.data);
         System.out.println("");
+        System.out.println("Tree after deletion : ");
+        BinaryTreePrinter.printNode(root);
+        System.out.println("");
+        System.out.println("Leaf nodes : ");
+        printLeafNodes(root);
 //        System.out.println("Check whether Node with value 4 exists : " + b.find(4));
 //        System.out.println("Delete Node with no children (2) : " + b.delete(2));
 //        b.display(root);
@@ -69,7 +76,21 @@ public class BinarySearchTree {
         }
     }
 
-    void insert(int data) {
+    boolean find(int data) {
+        Node current = root;
+        while (current != null) {
+            if (current.data == data) {
+                return true;
+            } else if (current.data > data) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        return false;
+    }
+
+    static void insert(int data) {
         Node newNode = new Node(data);
         if (root == null) {
             root = newNode;
@@ -93,6 +114,98 @@ public class BinarySearchTree {
                 }
             }
         }
+    }
+
+    static boolean delete(int data) {
+        Node parent = root;
+        Node current = root;
+        boolean isLeftChild = false;
+        //first we find the node to be deleted
+        while (current.data != data) {
+            parent = current;
+            if (current.data > data) {
+                isLeftChild = true;
+                current = current.left;
+            } else {
+                isLeftChild = false;
+                current = current.right;
+            }
+            if (current == null) {
+                return false;
+            }
+        }
+
+        //if we are here that means we have found the node
+        //Case 1: if node to be deleted has no children
+        if (current.left == null && current.right == null) {
+            if (current == root) {
+                root = null;
+            }
+            if (isLeftChild) {
+                parent.left = null;
+            } else {
+                parent.right = null;
+            }
+        }
+        //Case 2 : if node to be deleted has only one child
+        else if (current.right == null) {
+            if (current == root) {
+                root = current.left;
+            } else if (isLeftChild) {
+                parent.left = current.left;
+            } else {
+                parent.right = current.right;
+            }
+        }
+        //Case 3 : if node to be deleted has two children
+        else if (current.left != null && current.right != null) {
+            //now we have found the minimum element in the right sub tree
+            Node successor = getSuccessor(current);
+            if (current == root) {
+                root = successor;
+            } else if (isLeftChild) {
+                parent.left = successor;
+            } else {
+                parent.right = successor;
+            }
+            successor.left = current.left;
+        }
+
+        return true;
+    }
+
+    private static Node getSuccessor(Node deleteNode) {
+        Node successor = null;
+        Node successorParent = null;
+        Node current = deleteNode.right;
+        while (current != null) {
+            successorParent = successor;
+            successor = current;
+            current = current.left;
+        }
+        //check if successor has a right child, it cannot have left child for sure
+        // if it does have a right child, add it to the left of successorParent (successorParent is the parent before we move the successor).
+        if (successor != deleteNode.right) { //this block is clearer with a graphical example
+            successorParent.left = successor.right;
+            successor.right = deleteNode.right;
+        }
+        return successor;
+    }
+
+    static void printLeafNodes(Node node) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.left == null && node.right == null) {
+            System.out.println(" " + node.data);
+        }
+        printLeafNodes(node.left);
+        printLeafNodes(node.right);
+    }
+
+    static int getMaximumElementIter(Node root) {
+       return 0;
     }
 
     static void inOrderIter(Node root) {
@@ -159,7 +272,7 @@ public class BinarySearchTree {
         Node current = root;
 
         while (true) {
-            while(current != null) {
+            while (current != null) {
                 if (current.right != null) {
                     stack.push(current.right);
                 }
@@ -187,7 +300,7 @@ public class BinarySearchTree {
     static void levelOrderTraversal(Node root) {
         Queue<Node> queue = new LinkedList<>();
         queue.add(root);
-        while(!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             Node tempNode = queue.poll();
             System.out.println(tempNode.data + " ");
             if (tempNode.left != null) {
