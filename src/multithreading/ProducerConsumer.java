@@ -1,22 +1,35 @@
 package multithreading;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.Queue;
 import java.util.Random;
 
 //http://javarevisited.blogspot.bg/2015/07/how-to-use-wait-notify-and-notifyall-in.html
 public class ProducerConsumer {
     public static void main(String[] args) {
-        Queue<Integer> buffer = new LinkedList<>();
-        int maxSize = 10;
+        HashMap<String, Test> map = new HashMap<>();
+        Test t = new Test();
+        t.a = 5;
+        String key = "key";
+        map.put(key, t);
+        t = new Test();
+        t.a = 6;
+        System.out.println(map.get(key).a);
 
-        Producer producer = new Producer(buffer, maxSize, "PRODUCER");
-        Consumer consumer = new Consumer(buffer, maxSize, "CONSUMER");
-
-        producer.start();
-        consumer.start();
+//        Queue<Integer> buffer = new LinkedList<>();
+//        int maxSize = 10;
+//
+//        Producer producer = new Producer(buffer, maxSize, "PRODUCER");
+//        Consumer consumer = new Consumer(buffer, maxSize, "CONSUMER");
+//
+//        producer.start();
+//        consumer.start();
     }
 }
+
+    class Test {
+        public int a;
+    }
 
     class Producer extends Thread {
         private Queue<Integer> queue;

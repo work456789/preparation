@@ -11,8 +11,15 @@ public class ProducerConsumer2 {
 
         Thread producer = new Thread(new Producer2(buffer, maxSize));
         Thread consumer = new Thread(new Consumer2(buffer, maxSize));
+        Thread producer2 = new Thread(new Producer2(buffer, maxSize));
+        Thread producer3 = new Thread(new Producer2(buffer, maxSize));
+        Thread producer4 = new Thread(new Producer2(buffer, maxSize));
+
 
         producer.start();
+        producer2.start();
+        producer3.start();
+        producer4.start();
         consumer.start();
     }
 
