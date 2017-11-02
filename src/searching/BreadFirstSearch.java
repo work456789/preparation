@@ -1,4 +1,4 @@
-package graph.searching;
+package searching;
 
-public class BreadFirstSerach {
+public class BreadFirstSearch {
 }

@@ -39,4 +39,8 @@ public class Test {
         change(beforeChange);
         System.out.println(beforeChange);
     }
+
+    protected static void testProtected() {
+        System.out.println("Test protected");
+    }
 }

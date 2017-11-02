@@ -5,7 +5,7 @@ import java.util.concurrent.Callable;
 public class CallableFactorial {
     public static void main(String[] args) throws Exception {
 //        long N = 20;
-//        Callable<Long> task = new Factorial(N);
+//        MyCallable<Long> task = new Factorial(N);
 //        ExecutorService es = Executors.newSingleThreadExecutor();
 //        Future<Long> future =  es.submit(task);
 //        System.out.println(future.get());
