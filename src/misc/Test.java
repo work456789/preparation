@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class Test<T> extends random.Test{
     int counter;
@@ -19,7 +20,7 @@ public class Test<T> extends random.Test{
         if (b = true) { str = "true"; }
 
         Map<Integer, String> map = new HashMap<>();
-        testProtected();
+      //  testProtected();
 
         map.put(10, "A");
         map.put(222, "B");
@@ -32,9 +33,21 @@ public class Test<T> extends random.Test{
         stringList.add("B");
         stringList.add("C");
 
-        List<String> filteredList = new ArrayList<>();
-        stringList.stream().filter((s) -> s.equals("A")).map((s) ->filteredList.add(s));
-        System.out.println(filteredList.toString());
+        List<String> stringList2 = new ArrayList<>();
+        stringList.add("A2");
+        stringList.add("B2");
+        stringList.add("C2");
+
+        List<List<String>> listOfLists = new ArrayList<>();
+        listOfLists.add(stringList);
+        listOfLists.add(stringList2);
+
+        listOfLists.stream().forEach(System.out::println);
+        Stream.of(listOfLists).forEach(System.out::println);
+
+//        List<String> filteredList = new ArrayList<>();
+//        stringList.stream().filter((s) -> s.equals("A")).map((s) ->filteredList.add(s));
+//        System.out.println(filteredList.toString());
 //
 //        map.put(1112, "F");
 //        map.put(3333, "G");
@@ -47,7 +60,7 @@ public class Test<T> extends random.Test{
 //        map.put(45645645, "M");
 //        map.put(567567, "N");
 //        map.put(345345, "O");
-        startTest();
+       // startTest();
     }
 
     private static void startTest() {
