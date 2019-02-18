@@ -1,4 +1,4 @@
-package com.preparation.designpatterns.abstractfactory;
+package com.preparation.designpatterns.factory.abstractfactory;
 
 public abstract class Car {
     abstract String getEnginePower();
