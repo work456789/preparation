@@ -2,8 +2,8 @@ package com.preparation.designpatterns.decorator;
 
 public class DecoratorTest {
     public static void main(String[] args) {
-        Car car = new NormalCar();
-        Car sportCar = new SportCarDecoratorImpl(car);
-        sportCar.goToWork();
+        Programmer programmer = new NormalProgrammer();
+        Programmer softSkillsProgrammer = new SoftSkillsProgrammer(programmer);
+        softSkillsProgrammer.code();
     }
 }
