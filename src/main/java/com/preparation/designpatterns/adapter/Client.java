@@ -13,5 +13,4 @@ public class Client {
 
         adapter.plugInThreePin();
     }
-
 }
