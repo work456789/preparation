@@ -4,29 +4,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RomanToInteger {
+    public static Map<Character, Integer> mapRomanToInt;
+    static {
+        mapRomanToInt = new HashMap<>();
+
+        mapRomanToInt.put('I', 1);
+        mapRomanToInt.put('V', 5);
+        mapRomanToInt.put('X', 10);
+        mapRomanToInt.put('L', 50);
+        mapRomanToInt.put('C', 100);
+        mapRomanToInt.put('D', 500);
+        mapRomanToInt.put('M', 1000);
+    }
+
     public static void main(String[] args) {
         RomanToInteger toInteger = new RomanToInteger();
-        toInteger.romanToInt("XX");
+        System.out.println(toInteger.romanToInt("MCMXCIV"));
     }
 
-    public int romanToInt(String s) {
-        Map<Character, Integer> m = new HashMap<>();
+    public int romanToInt(String input) {
 
-        m.put('I', 1);
-        m.put('V', 5);
-        m.put('X', 10);
-        m.put('L', 50);
-        m.put('C', 100);
-        m.put('D', 500);
-        m.put('M', 1000);
+        int totalSum = 0;
 
-        int ans = 0;
-        char[] chars = s.toCharArray();
-        for (int i = 0; i <chars.length; i++) {
-    if (i == 0) {
-
-    }
+        for (int i = 0; i < input.length(); i++) {
+            if (i < (input.length() - 1) && getIntFromRomanChar(input.charAt(i+1)) > getIntFromRomanChar(input.charAt(i))) {
+                totalSum = totalSum - getIntFromRomanChar(input.charAt(i));
+            } else {
+                totalSum = totalSum + getIntFromRomanChar(input.charAt(i));
+            }
         }
-return 0;
+
+        return totalSum;
+    }
+
+    public int getIntFromRomanChar(char roman) {
+        return mapRomanToInt.get(roman);
     }
 }
