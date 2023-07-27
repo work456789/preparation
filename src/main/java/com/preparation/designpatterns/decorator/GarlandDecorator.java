@@ -1,6 +1,6 @@
 package com.preparation.designpatterns.decorator;
 
-public class GarlandDecorator extends TreeDecorator{
+public class GarlandDecorator extends TreeDecorator {
     public GarlandDecorator(ChristmasTree christmasTree) {
         super(christmasTree);
     }
